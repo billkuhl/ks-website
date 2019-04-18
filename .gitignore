@@ -1,0 +1,11 @@
+# ignore vscode files
+.vscode/
+
+# ignore virtualenv
+env/
+
+# ignore actual config file
+./web/config.py
+
+# ignore __pycache__ directories
+**/*/__pycache__

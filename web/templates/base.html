@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- CSS -->
+        <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='vendor/bootstrap.min.css')}}" >
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='web.css') }}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+        <!-- Javascript Libraries -->
+        <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+        <!-- Mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="theme-color" content="#146eff">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <title>{% block title %}{% endblock %} &middot; {{ config['APP_NAME'] }}</title>
+        
+        
+        {% block head %}
+        {% endblock %}
+    
+        {% block meta %}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+            
+            {% block end %}
+            {% endblock %}
+        </div>
+
+
+        <script src="{{ url_for('static', filename='vendor/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='vendor/bootstrap.min.js') }}"></script>
+    </body>
+</html>
