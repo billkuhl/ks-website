@@ -5,7 +5,7 @@
 env/
 
 # ignore actual config file
-./web/config.py
+web/config.py
 
 # ignore __pycache__ directories
 **/*/__pycache__
