@@ -8,15 +8,30 @@
 
 {% block nav %}
 	<li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
-	<li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li>
-	<li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li>
+	{# <li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li> #}
+	{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
 	<li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li>
 {% endblock %}
 
 {% block page_content %}
-	
-	<div class="placeholder">
-		<h1>Kappa Sigma</h1>
-	</div>
+	<section id="page_content">
+		<div class="banner">
+			<img src="static/img/ks.jpg" class="img-fluid" alt="Responsive image">
+		</div>
+		<div class="container-fluid">
+			<div class="row justify-content-md-center">
+				<div class="col-md-9 col-md-6">
+					<div class="about">
+					
+						<h3>Kappa Sigma Gamma Pi Chapter</h3>
+						<h5>Brothers in the Heart Forever</h5>
+						<p>For more than a century, Kappa Sigma has shaped the lives of hundreds of MIT men, creating leaders on campus and in the world beyond.</p>
+						<p>Located conveniently on West Campus between Burton Connor and Baker House, K&#931 is placed right in the heart of MIT campus, along with several of its fraternal neighbors.</p>
+						<p>Members of K&#931 are involved with many different aspects of life on campus. Whether that be as players on MIT's sports teams, members and leaders of student clubs on campus, or just another friendly face in class.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 {% endblock %}

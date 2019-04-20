@@ -10,14 +10,16 @@
         <!-- Javascript Libraries -->
         <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
 
-
         <!-- Mobile -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="theme-color" content="#146eff">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="mobile-web-app-capable" content="yes">
 
-        <title>{% block title %}{% endblock %} &middot; {{ config['APP_NAME'] }}</title>
+        <!-- Favicon -->
+        <link rel="icon" href="https://jk0uz2gof2j3u6upx2ef89l6-wpengine.netdna-ssl.com/wp-content/uploads/2015/04/favicon-small.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="https://jk0uz2gof2j3u6upx2ef89l6-wpengine.netdna-ssl.com/wp-content/uploads/2015/04/favicon-retina.png" type="image/png" sizes="32x32">
+        <title>{% block title %}{% endblock %} &middot; K&#931</title>
         
         
         {% block head %}
@@ -35,6 +37,23 @@
             {% endblock %}
         </div>
 
+        <footer class="footer mt-auto py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm align-self-start left">
+                        <p>407 Memorial Drive<br>Cambridge, MA 02139</p>
+                    </div>
+                    <div class="col-sm align-self-center center">
+                        <img class="footer-image" src="/static/img/footer.png">
+                    </div>
+                    <div class="col-sm align-self-end right">
+                        <p><a target="_none" rel="noopener" href="http://www.kappasigma.org">Kappa Sigma International</a><br>
+                        <a target="_none" rel="noopener" href="http://studentlife.mit.edu/fsilg">MIT FSILG</a><br>
+                        <a target="_none" rel="noopener" href="http://ifc.mit.edu/">MIT Interfraternity Council</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
         <script src="{{ url_for('static', filename='vendor/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='vendor/bootstrap.min.js') }}"></script>
