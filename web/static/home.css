@@ -44,9 +44,16 @@ section#page_content .about h6 {
     letter-spacing: 2.5px;
     text-align: center;
 }
+
 section#page_content .about p {
-    font-family: "Segoe UI";
+    font-family: "Noto Sans", sans-serif;
 }
+
+section#page_content .about p a {
+    color: #ae1717;
+    font-weight: 700;
+}
+
 section#page_content .about h5 {
     font-weight: 400;
     font-size: 1.1em;
