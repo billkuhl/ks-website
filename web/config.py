@@ -2,7 +2,7 @@
 PORT = 80
 
 # Postgres SQL Connection String.
-DB_URI = 'postgresql://username:password@localhost/confess'
+DB_URI = 'postgresql://@localhost:5432/test'
 
 # Full domain name.
 DOMAIN = 'http://localhost'
