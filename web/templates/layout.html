@@ -25,9 +25,49 @@
                     </ul>
                 </div>
             </nav>
+
+            <!-- Div for messages as they appear -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div  class="alert alert-{{category}}" role="alert" style="width:100%;">
+                            {{ message }}
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
             {% block page_content %}
             {% endblock %}
         </div>
     </section>
+
+    <!-- Script to make it so you can delete the flash messages -->
+    <script>
+        $(document).on('click', '.close', function(){
+            $(this).closest('div').remove();
+        });
+    </script>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm align-self-start left">
+                    <p>407 Memorial Drive<br>Cambridge, MA 02139</p>
+                </div>
+                <div class="col-sm align-self-center center">
+                    <img class="footer-image" src="/static/img/footer.png">
+                </div>
+                <div class="col-sm align-self-end right">
+                    <p><a target="_none" rel="noopener" href="http://www.kappasigma.org">Kappa Sigma International</a><br>
+                    <a target="_none" rel="noopener" href="http://studentlife.mit.edu/fsilg">MIT FSILG</a><br>
+                    <a target="_none" rel="noopener" href="http://ifc.mit.edu/">MIT Interfraternity Council</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 {% endblock %}

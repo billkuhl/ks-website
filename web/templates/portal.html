@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}Test{% endblock %}
+
+{% block nav %}
+<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+	{# <li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li> #}
+	{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
+	<li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li>
+	{% if current_user.is_authenticated %}
+		<li class="nav-item"><a class="nav-link active" href="/brothers">Brothers Only</a></li>
+		<li class="nav-item"><a class="nav-link" href="/settings">Profile</a></li>
+	{% endif %}
+{% endblock %}
+
+{% block page_content %}
+	<section id="page_content">
+	<a href="{{ url_for('account.logout') }}">Logout</a>
+        <h1>Welcome, {{ user.initials() }}</h1>
+		<iframe src="https://calendar.google.com/calendar/embed?src=idtqlrq8mhtcbt7cudckv8f9k8%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+	</section>
+
+{% endblock %}

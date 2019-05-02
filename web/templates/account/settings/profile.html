@@ -1,0 +1,84 @@
+{% extends 'account/settings/base.html' %}
+{% import 'macros/form_macros.html' as f %}
+
+{% block title %}Settings{% endblock %}
+
+{% block sub_content %}
+    <!-- TEMPORARY include profile specific CSS TODO put into css file -->
+    {{ profile_css() }}
+
+    <!-- Content -->
+    <div class="subhead">
+        <h2 class="subhead-heading">Public Profile</h2>
+    </div>
+    <div class="clearfix gutter d-flex flex-shrink-0">
+        <div class="col-8">
+            {{ f.render_form(form, user) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% macro profile_css() %}
+    <style>
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            background-image: linear-gradient(-180deg,#34d058,#28a745 90%);
+            color: #fff;
+        }
+
+        .callout {
+            padding: 20px !important;
+            margin: 20px 0;
+            border: 1px solid #eee;
+            border-left-width: 5px;
+            border-radius: 3px;
+        }
+        .callout > h4 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #f0ad4e;
+        }
+        
+        .callout > p:last-child {
+            margin-bottom: 0;
+        }
+        .callout > code {
+            border-radius: 3px;
+        }
+
+        .callout-warning {
+            border-left-color: #f0ad4e;
+        }
+
+        dd {
+            margin-left: 0;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        .note {
+            color: #586069 !important;
+            font-size: 12px;
+            margin: 4px 0 2px;
+            min-height: 17px;
+        }
+
+        .subhead {
+            border-bottom: 1px solid #e1e4e8;
+            display: flex;
+            flex-flow: row wrap;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+        }
+
+        .subhead-heading {
+            flex: 1 1 auto;
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+    </style>
+{% endmacro %}

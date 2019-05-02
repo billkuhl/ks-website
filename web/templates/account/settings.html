@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block nav %}
+	<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+	{# <li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li> #}
+	{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
+	<li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li>
+	<li class="nav-item"><a class="nav-link active" href="/brothers">Brothers Only</a></li>
+{% endblock %}
+
+{% block page_content %}
+	<section id="page_content">
+	<a href="{{ url_for('account.logout') }}">Logout</a>
+        <h1>Welcome, {{ user.full_name() }}</h1>
+        <ul>
+            <li>Hi</li>
+            <li>Hello</li>
+        </ul>
+	</section>
+{% endblock %}

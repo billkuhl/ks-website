@@ -1,7 +1,8 @@
 import uuid
 import jwt
 
-from flask import request, redirect
+from flask import request, redirect, abort
+from flask_login import current_user
 from functools import wraps
 from web.config import *
 from web.models.user import *
@@ -32,3 +33,21 @@ def requires_auth():
 
         return decorated
     return decorator
+
+def permission_required(permission):
+    """Restrict a view to users with the given permission."""
+
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.can(permission):
+                abort(403)
+            return f(*args, **kwargs)
+
+        return decorated_function
+
+    return decorator
+
+
+def admin_required(f):
+    return permission_required(Permission.ADMINISTER)(f)

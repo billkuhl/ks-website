@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block nav %}
+	<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+	<li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li>
+	<li class="nav-item"><a class="nav-link" href="/brothers">Brothers Only</a></li>
+    <li class="nav-item"><a class="nav-link active" href="/admin">Admin Platform</a></li>
+{% endblock %}
+
+
+{% block page_content %}
+    <h1 style="text-align:center;">
+        Admin Dashboard
+    </h1>
+
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-sm-12">
+            <div class="navbar">
+                <ul class="sidebar">
+                    <li class="nav-item"><a class="nav-link {% block nav_ru %}{% endblock %}" href="{{ url_for('admin.index') }}">Registered Users</a></li>
+                    <li class="nav-item"><a class="nav-link {% block nav_anu %}{% endblock %}" href="{{ url_for('admin.new_user') }}">Add New User</a></li>
+                    <li class="nav-item"><a class="nav-link {% block nav_inu %}{% endblock %}" href="{{ url_for('admin.invite_user') }}">Invite New User</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Subcontent -->
+        <div class="col-md-9 col-sm-12">
+            {% block sub_content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'account/settings/base.html' %}
+{% import 'macros/form_macros.html' as f %}
+
+{% block title %}Admin{% endblock %}
+
+{% block sub_content %}
+    <!-- TEMPORARY include profile specific CSS TODO put into css file -->
+    {{ profile_css() }}
+
+    <!-- Content -->
+    <div class="subhead">
+        <h2 class="subhead-heading">Change Password</h2>
+    </div>
+    <div class="clearfix gutter d-flex flex-shrink-0">
+        <div class="col-8">
+            {{ f.render_form(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% macro profile_css() %}
+    <style>
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+            background-image: linear-gradient(-180deg,#34d058,#28a745 90%);
+            color: #fff;
+        }
+
+        .callout {
+            padding: 20px !important;
+            margin: 20px 0;
+            border: 1px solid #eee;
+            border-left-width: 5px;
+            border-radius: 3px;
+        }
+        .callout > h4 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #f0ad4e;
+        }
+        
+        .callout > p:last-child {
+            margin-bottom: 0;
+        }
+        .callout > code {
+            border-radius: 3px;
+        }
+
+        .callout-warning {
+            border-left-color: #f0ad4e;
+        }
+
+        dd {
+            margin-left: 0;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        .note {
+            color: #586069 !important;
+            font-size: 12px;
+            margin: 4px 0 2px;
+            min-height: 17px;
+        }
+
+        .subhead {
+            border-bottom: 1px solid #e1e4e8;
+            display: flex;
+            flex-flow: row wrap;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+        }
+
+        .subhead-heading {
+            flex: 1 1 auto;
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+    </style>
+{% endmacro %}
+
+{% set flashes = {
+    'error':   get_flashed_messages(category_filter=['form-error']),
+    'warning': get_flashed_messages(category_filter=['form-check-email']),
+    'info':    get_flashed_messages(category_filter=['form-info']),
+    'success': get_flashed_messages(category_filter=['form-success'])
+} %}
+
+{% macro render_form_input(field, extra_classes) %}
+    {% if field.widget.input_type == 'checkbox' %}
+        <div class="ui checkbox">
+            {{ field }}
+            {{ field.label }}
+        </div>
+    {% elif field.type == 'RadioField' %}
+        {{ field.label }}
+        {% for item in field %}
+            <div class="ui radio checkbox">
+                {{ item }}
+                {{ item.label }}
+            </div>
+        {% endfor %}
+    {% elif field.type == 'PasswordField' %}
+        <dl class="form-group">
+            <dt>{{ field.label }}</dt>
+            {% if field.description %}
+                <dd class="d-inline-block">
+                    {{ field(class_='form-control {{ extra_classes }}') }}
+                    <p class="note">{{ field.description }}</p>
+                </dd>
+            {% else %}
+                <dd>{{ field(class_='form-control {{ extra_classes }}') }}</dd>
+            {% endif %}
+        </dl>
+    {% elif field.type == 'SubmitField' %}
+        {{ field(class='btn btn-primary') }}
+    {% elif field.type == 'FormField' %}
+        {{ render_form(field) }}
+    {% elif field.type == 'CustomSelectField' %}
+        {{ render_custom_select(field) }}
+    {% else %}
+        {% set name = user.__getattr__(field.name) %}
+        {% set placeholder = name if (name) else field.label.text %}
+        {% set value_placeholder = placeholder if (placeholder != field.label.text) %}
+        
+        <dl class="form-group">
+            <dt>{{ field.label }}</dt>
+            {% if field.description %}
+                <dd class="d-inline-block">
+                    {{ field(placeholder=placeholder, class_='form-control {{ extra_classes }}') }}
+                    <p class="note">{{ field.description }}</p>
+                </dd>
+            {% else %}
+                <dd>{{ field(placeholder=placeholder, class_='form-control {{ extra_classes }}') }}</dd>
+            {% endif %}
+        </dl>
+    {% endif %}
+{% endmacro %}
+
+{# Render a field for the form #}
+{% macro render_field(field, extra_classes='') %}
+    {% if field.type == 'Radio Field' %}
+        {% set extra_classes = extra_classes + ' grouped fields' %}
+    {% endif %}
+    <div class="field {% if field.errors %}error{% endif %}">
+        {{ render_form_input(field, extra_classes) }}
+        {% if field.errors %}
+            <div class="callout callout-warning">
+                <h4>Warning!</h4>
+                {{ field.errors[0] | safe }}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}

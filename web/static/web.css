@@ -1,13 +1,16 @@
 html {
     height: 100%;
 }
-body {
-    min-height: 100%;
-}
 
 #content {
-    min-height: 100%;
+    position: relative;
+    min-height: 100vh;
 }
+
+section#layout {
+    padding-bottom: 8rem;
+}
+
 
 section#layout > .container-fluid {
     padding-left: 0;
@@ -73,6 +76,58 @@ section#layout .navbar-toggler:hover, section#layout .navbar-toggler:hover:after
     outline: thin dotted;
 }
 
+.sidebar {
+    margin-top: 50px;
+    border-right: 1px solid #ccc;
+    height: 100%;
+}
+.sidebar a {
+    list-style-type: none;
+    padding: 5px 30px 0 10px;
+    /* margin-bottom: 10px; */
+    color: #000;
+    font-family: "Raleway", sans-serif;
+    text-transform: uppercase;
+    font-size: .8em;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-align: right;
+}
+
+.sidebar li.active,
+.sidebar li:hover{
+    border-left: 5px solid #ae1717;
+    font-weight: 700;
+}
+
+section#layout .navbar .sidebar li:hover {
+    font-weight: 700;
+    text-decoration: none;
+}
+
+@media (max-width: 991px) {
+    .sidebar {
+        border-right: none !important;
+        text-align: center;
+        padding-left: 0;
+        margin: 0;
+    }
+    .sidebar li {
+        display: inline-block !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        text-align: center !important;
+    }
+    .sidebar li.active,
+    .sidebar li:hover,
+    .sidebar li:hover {
+        border-bottom: 3px solid #ae1717 !important;
+        border-left: none !important;
+    }
+}
+
 @media(min-width:768px){
     section#layout > div > nav > button {
         display: none;
@@ -89,13 +144,12 @@ section#layout .navbar-toggler:hover, section#layout .navbar-toggler:hover:after
     }
 }
 
-/* Fuck */
-/* footer {
+footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding-top: 100px;
-} */
+    height: 8rem;
+}
 
 footer .footer-image {
     top: 12.5px;

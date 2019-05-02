@@ -5,13 +5,26 @@ PORT = 80
 DB_URI = 'postgresql://@localhost:5432/test'
 
 # Full domain name.
-DOMAIN = 'http://localhost'
+DOMAIN = 'http://kappasig.mit.edu'
 
 # Random Secret for JWTs.
-SECRET = 'some_secret'
+# SECRET = 'B&E)H@McQfTjWmZq4t7w!z%C*F-JaNdR'
+SECRET = 'tigolebitties'
 
 # Name
 APP_NAME = 'kappasig.mit.edu'
 
+# Admin Email
+ADMIN_EMAIL = 'dangonzo@mit.edu'
+
+# Admin Pasword
+ADMIN_PASSWORD = 'Password1'
+
 # Debug
 DEBUG = True
+
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 465
+MAIL_USE_SSL = True
+MAIL_USERNAME = 'tscobb.mit@gmail.com'
+MAIL_PASSWORD = 'tscobb1914'

@@ -1,27 +1,31 @@
-from web import app
-from web.utils import *
-from web.models import *
 from web.models.user import *
+from flask import Blueprint, request, redirect, render_template
+from flask_login import login_required, current_user
 
-import os
-import json
+main = Blueprint('main', __name__)
 
-from flask import send_from_directory, request, redirect, render_template
 
-@app.route('/restricted')
-@requires_auth()
-def restricted():
-    users = User.query.all()
-    print(users)
-    return render_template('restricted.html')
+# Display the brother's only page
+@main.route('/brothers')
+@login_required
+def brother_portal():
+    return render_template('portal.html', user=current_user)
+
 
 # Display the summer housing page
-@app.route('/summer-housing')
+@main.route('/summer-housing')
 def summer_housing():
     return render_template('summer-housing.html')
 
+
 # Display the home page
-@app.route('/about')
-@app.route('/')
+@main.route('/about')
+@main.route('/')
 def index():
     return render_template('home.html')
+
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    print(request.path)
+    return redirect('/account/login?next=' + request.path)
+

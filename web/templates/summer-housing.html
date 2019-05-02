@@ -4,13 +4,17 @@
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
 {% endblock %}
 
-{% block title %}summer housing{% endblock %}
+{% block title %}Summer Housing{% endblock %}
 
 {% block nav %}
 	<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
 	{# <li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li> #}
 	{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
 	<li class="nav-item"><a class="nav-link active" href="/summer-housing">Summer Housing</a></li>
+	{% if current_user.is_authenticated %}
+		<li class="nav-item"><a class="nav-link" href="/brothers">Brothers Only</a></li>
+		<li class="nav-item"><a class="nav-link" href="/settings">Profile</a></li>
+	{% endif %}
 {% endblock %}
 
 {% block page_content %}

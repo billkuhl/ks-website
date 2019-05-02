@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+
+{% set setting_endpoints = [
+    ('settings.index', 'Profile'),
+    ('settings.account', 'Account')
+] %}
+
+{% macro settings_menu(endpoints) %}
+    {% for route, title in endpoints %}
+        <a class="menu-item {% if request.endpoint == route %}selected{% endif %}" href="{{ url_for(route) }}">{{ title }}</a>
+    {% endfor %}
+{% endmacro %}
+
+{% block nav %}
+    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+	{# <li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li> #}
+	{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
+	<li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li>
+	{% if current_user.is_authenticated %}
+		<li class="nav-item"><a class="nav-link" href="/brothers">Brothers Only</a></li>
+		<li class="nav-item"><a class="nav-link active" href="/settings">Profile</a></li>
+	{% endif %}
+{% endblock %}
+
+{% block page_content %}
+    <!-- Include CSS TODO move to CSS file soon -->
+    {{ css() }}
+
+    <div class="container clearfix">
+        <div class="col-3 float-left pr-4">
+            <nav class="menu" aria-label="Personal settings" data-pjax>
+                <h3 class="menu-heading">Personal Settings</h3>
+                {{ settings_menu(setting_endpoints) }}
+            </nav>
+        </div>
+        <div class="col-9 float-left">
+            {% block sub_content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% macro css() %}
+    <style>
+        section#layout .container {
+            width: 980px;
+        }
+        @media (max-width: 991px) {
+            section#layout .container {
+                max-width: none !important;
+            }
+        }
+
+        .menu {
+            background-color: #fff;
+            border: 1px solid #d1d5da;
+            border-radius: 3px;
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .menu-heading {
+            background-color: #f3f5f8;
+            border-bottom: 1px solid #e1e4e8;
+            color: #586069;
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 20px;
+            margin-bottom: 0;
+            margin-top: 0;
+            padding: 8px 10px;
+        }
+        
+        .menu-item {
+            border-bottom: 1px solid #e1e4e8;
+            display: block;
+            padding: 8px 10px;
+            position: relative;
+        }
+        .menu-item:hover {
+            text-decoration: none !important;
+        }
+        .menu-item.selected {
+            background-color: #fff;
+            color: #24292e;
+            cursor: default;
+            font-weight: 600;
+        }
+        .menu-item.selected:before {
+            background-color: #ae1717;
+            bottom: 0;
+            content: "";
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 2px;
+        }
+    </style>
+{% endmacro %}
