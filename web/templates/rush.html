@@ -1,0 +1,214 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='rush.css') }}">
+{% endblock %}
+
+{% block title %}Rush{% endblock %}
+
+{% block nav %}
+<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+<li class="nav-item"><a class="nav-link active" href="/rush">Rush</a></li>
+{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
+{# <li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li> #}
+{% endblock %}
+
+{% block page_content %}
+<section id="page_content">
+    <div class="banner">
+        <img src="static/img/rush.jpg" class="img-fluid" alt="Photo of Brothers">
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-md-9 col-md-6">
+                <div class="about">
+                    <h3>Kappa Sigma Rush 2019</h3>
+                    <h5>OUR CHAMPION QUEST</h5>
+                    <p>The Brothers of Kappa Sigma are beyond excited to recruit and invite new men to join our
+                        brotherhood. We are dope, rush us. To view our events on the official online schedule, <a
+                            target="_none" rel="noopener" href="https://mitrush2019.sched.com/venue/Kappa%20Sigma">check
+                            them out here</a>!</p>
+                </div>
+
+                <div class="events">
+                    <div class="day">
+                        <h5>Saturday, August 31<sup>st</sup></h5>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Kresge Grillout</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">12:30 PM - 1:30 PM</h6>
+
+                                <p class="card-text">Come by and chow down on some delicious spice-rubbed meats, grilled
+                                    to perfection. Compliment your meat with a variety of home style sides, to fuel up
+                                    before running off to yet another event. We have vegetarian options too.</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Volleyball with Kappa Sigma</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">12:30 PM - 1:30 PM</h6>
+                                <p class="card-text">Everything in your life has been leading up to this one point in
+                                    time. This one chance to finally make it. To make your loved ones proud and find the
+                                    meaning of life. Saturday 12:30pm. Be there.</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Open House and House Tours</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">12:30 PM - 2:30 PM</h6>
+                                <p class="card-text">Come get a tour of our house! Ask Brother Gonzo about Kappa Sigma's
+                                    furniture recycling program.</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">KruSh the waves!</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">11:00 PM - 12:30 AM</h6>
+                                <p class="card-text">Come party at Kappa Sigma and Kru&#931h the waves at our house!</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">The Original Midnight Buffet: Carnival Favorites</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">12:30 AM - 1:00 AM</h6>
+                                <p class="card-text">You wouldn't think to combine the words midnight and buffet, but we
+                                    did. Come to the Kappa Sigma house after our party to enjoy funnel cakes, cotton
+                                    candy, and fried oreos, then stay for the foosball, billiards, ping pong,
+                                    basketball, Wii U, Super Smash, and more.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day">
+                        <h5>Sunday, September 1<sup>st</sup></h5>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">NEW HAMPSHIRE WAKEBOARDING <span
+                                        class="badge badge-pill badge-primary">Invite Only</span></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Time TBD</h6>
+
+                                <p class="card-text">The brothers of Kappa Sigma invite you to go Windsurfing at Cape
+                                    Cod! It will be a day of beach fun and shredding waves all day long!</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Bos-TON of Ice Cream</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">12:00 PM - 1:30 PM</h6>
+                                <p class="card-text">Ice cream is fun. Lots of free ice cream is better. Come have a
+                                    relaxing afternoon with the brothers of Kappa Sigma and enjoy some cold ice cream to
+                                    beat the heat!</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Uncle E’s BBQ Express</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">5:30 PM - 6:30 PM</h6>
+                                <p class="card-text">Want some of the best BBQ in Boston? A BBQ truck will be at Kappa
+                                    Sigma serving up hot and spicy food! Come for the food and stay to meet the
+                                    brothers!</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">The Original Midnight Buffet: College Classics</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">11:00 PM - 12:30 AM</h6>
+                                <p class="card-text">Want a taste of what college is like? Hungry after going to a
+                                    Sunday night party? Come on down to Kappa Sigma and hang out with the brothers!
+                                    We've got cookies, pizza rolls, brownies, and more! Grab a plate and play some card
+                                    games, Super Smash, and FIFA late into the night!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day">
+                        <h5>Monday, September 2<sup>nd</sup></h5>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Brunch with Kappa Sigma</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">11:30 AM - 1:30 PM</h6>
+
+                                <p class="card-text">Food is pretty great. Free food is even better. Nobody likes
+                                    Mondays, so come join us at the Kappa Sigma house for some free food. Or don't. Then
+                                    we'd get more of the food.</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Poker Night</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">6:30 PM - 9:00 PM</h6>
+                                <p class="card-text">Whether you play in the World Series of Poker or barely know what
+                                    poker is, we'll make sure you have fun at our Kappa Sigma Poker Night! You'll get to
+                                    experience a typical night at KS and get to talk with the brothers in a relaxed
+                                    setting while eating pizza.</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">The Original Midnight Buffet: Feel The Fire</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">11:00 PM - 12:30 AM</h6>
+                                <p class="card-text">Don't conform to the man, man. Come chow down on some of the best
+                                    spicy wings Boston has to offer. Satisfy your inner hipster's appetite with some
+                                    N64, card games, and good old fashion relaxing.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day">
+                        <h5>Tuesday, September 3<sup>rd</sup></h5>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Harbor Boat Cruise <span
+                                        class="badge badge-pill badge-primary">Invite Only</span></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">9:45 AM - 3:00 PM</h6>
+
+                                <p class="card-text">This will be an afternoon to remember. The Brothers of Kappa Sigma
+                                    invite you to join them aboard a Spirit Cruiseline Lunch Cruise around Boston Harbor
+                                    where you can get some of the greatest views of this great city. Let your mind drift
+                                    away with the tides as you enjoy a casual brunch and good company. Dress is business
+                                    casual.</p>
+                            </div>
+                        </div>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">Dinner with Chef <code>{% raw %}{% chef %}{% endraw %}</code>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">7:00 PM - 9:00 PM</h6>
+                                <p class="card-text">You've probably eaten quite a few large meals by this point, so
+                                    what's the harm in one more? Come by our convenient location for a meal made by our
+                                    very own Chef Deino. Except, Chef Deino is not here any more, so if you find him,
+                                    please let us know. Until then, dinner will be prepared by Chef
+                                    <code>{% raw %}{% chef %}{% endraw %}</code>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day">
+                        <h5>Wednesday, September 4<sup>th</sup></h5>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">First Day Of Classes Lunch</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">11:00 AM - 1:00 PM</h6>
+
+                                <p class="card-text">Come eat lunch with the brothers of Kappa Sigma and talk about
+                                    classes and life at MIT!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day">
+                        <h5>Thursday, September 5<sup>th</sup></h5>
+                        <div class="card event">
+                            <div class="card-body">
+                                <h5 class="card-title">NFL Kickoff Night</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">8:00 PM - 11:59 PM</h6>
+
+                                <p class="card-text">The Green Bay Packers play the Chicago Bears to kick off the 2019
+                                    NFL season. Join us to watch it on our 80" projector screen on our first floor,
+                                    along with pizza and wings!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
