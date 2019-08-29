@@ -24,6 +24,20 @@
     }
 }
 
+section#page_content .rush-content {
+    margin: auto !important;
+    height: auto;
+    width: 75vw;
+    clear: both;
+}
+
+section#page_content .banner  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 650px;
+}
+
 section#page_content .events h3, section#page_content .events h4, section#page_content .events>h5, section#page_content .events h6 {
     /* text-transform: uppercase; */
     font-family: "Raleway", sans-serif;
