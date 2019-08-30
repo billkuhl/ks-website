@@ -11,16 +11,15 @@
 <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
 <li class="nav-item"><a class="nav-link active" href="/rush">Rush</a></li>
 {# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
-{# <li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li> #}
+<li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li>
 {% endblock %}
 
 {% block page_content %}
 <section id="page_content">
-
-    {% if show %}
     <div class="banner">
         <img src="static/img/rush.jpg" class="img-fluid" alt="Photo of Brothers">
     </div>
+    {% if show %}
     <div class="container-fluid rush-content">
         <div class="row justify-content-md-center">
             <div class="col-md-9 col-md-6">
@@ -213,8 +212,8 @@
         </div>
     </div>
     {% else %}
-    <div class="container-fluid rush-content">
-        <p>Check back here for our Rush Schedule on Friday August 30<sup>th</sup> at Midnight!</p>
+    <div class="container-fluid rush-content" style="padding-top: 20px;">
+        <p><b>Check back here for our Rush Schedule on Friday August 30<sup>th</sup> at Midnight!</b></p>
     </div>
     {% endif %}
 
