@@ -1,0 +1,75 @@
+@media (max-width: 991px) {
+    section#layout .banner {
+        width: 100vw !important;
+    }
+    section#page_content .about h3 {
+        font-size: 1.2em !important;
+        line-height: 1em !important;
+    }
+    section#page_content .about h5 {
+        font-size: 0.8em !important;
+        line-height: 1em !important;
+        margin-bottom: 20px !important;
+    }
+    
+    section#page_content .about p {
+        font-size: .9em !important;
+    }
+
+    section#page_content .events h3, section#page_content .events h4, section#page_content .events>h5, section#page_content .events h6 {
+        font-size: .5em;
+    }
+    section#page_content .event p, section#page_content .event h5, section#page_content .event h6 {
+        font-size: .8em;
+    }
+}
+
+.rush-content {
+    text-align: center;
+}
+
+section#page_content .events h3, section#page_content .events h4, section#page_content .events>h5, section#page_content .events h6 {
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+}
+
+section#page_content .event {
+    margin-bottom: 10px;
+}
+
+section#page_content .day {
+    margin-bottom: 30px;
+}
+
+section#page_content .day > h5 {
+    color: #ae1717;
+    font-weight: 700;
+}
+
+section#page_content .event:hover {
+    outline: none;
+    border-color: #ae1717;
+    box-shadow: 1 1 5px #ae1717;
+}
+
+section#page_content .event .badge {
+    background-color: #ae1717;
+    font-size: .7em;
+}
+
+section#page_content .event p, section#page_content .event h5, section#page_content .event h6 {
+    font-family: "Noto Sans", sans-serif;
+}
+
+section#page_content .about p a {
+    color: #ae1717;
+    font-weight: 700;
+}
+
+section#page_content .about h5 {
+    font-weight: 400;
+    font-size: 1.1em;
+    line-height: 1.3em;
+    margin-bottom: 40px;
+}

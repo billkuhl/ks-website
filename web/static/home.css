@@ -4,9 +4,8 @@ section#page_content .banner {
     width: 75vw;
     clear: both;
 }
-    
+
 section#page_content .banner  img {
-    width: 100%;
     max-height: 100%;
     right: 0;
 }
@@ -17,6 +16,20 @@ section#page_content .banner  img {
     }
 }
 
+@media (max-width: 560px){
+    .video {
+        width: 100%;
+    }
+    
+    .video > iframe {
+        width: 100vw;
+    }
+}
+
+.video {
+    text-align: center;
+}
+
 section#page_content .container-fluid {
     width: 100%;
     padding-right: 15px;
@@ -24,6 +37,7 @@ section#page_content .container-fluid {
     margin-right: auto;
     margin-left: auto;
 }
+
 section#page_content .about {
     position: relative;
     margin-left: auto;
@@ -39,7 +53,7 @@ section#page_content .about h4,
 section#page_content .about h5, 
 section#page_content .about h6 {
     text-transform: uppercase;
-    font-family: "Raleway", sans-serif;
+    font-family: "Noto Sans", sans-serif;
     font-weight: 600;
     letter-spacing: 2.5px;
     text-align: center;
