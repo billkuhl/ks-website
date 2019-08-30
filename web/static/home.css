@@ -14,9 +14,15 @@ section#page_content .banner  img {
     section#layout .banner {
         width: 100vw !important;
     }
+}
 
+@media (max-width: 560px){
+    .video {
+        width: 100%;
+    }
+    
     .video > iframe {
-        width: 100vw !important;
+        width: 100vw;
     }
 }
 

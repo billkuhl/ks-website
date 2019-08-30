@@ -16,6 +16,8 @@
 
 {% block page_content %}
 <section id="page_content">
+
+    {% if show %}
     <div class="banner">
         <img src="static/img/rush.jpg" class="img-fluid" alt="Photo of Brothers">
     </div>
@@ -210,6 +212,12 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <div class="container-fluid rush-content">
+        <p>Check back here for our Rush Schedule on Friday August 30<sup>th</sup> at Midnight!</p>
+    </div>
+    {% endif %}
+
 </section>
 
 {% endblock %}
