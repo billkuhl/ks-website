@@ -18,6 +18,10 @@ def rush():
 def summer_housing():
     return render_template('summer-housing.html')
 
+@app.route('/form')
+def entry_form():
+    return redirect('https://www.docs.google.com/forms/d/e/1FAIpQLSdagonMXv1AGXdZAoMynzV5ycG22IR_l-HrXYCKiqudZnJA9Q/viewform?usp=sf_link')
+
 # Display the home page
 @app.route('/about')
 @app.route('/')

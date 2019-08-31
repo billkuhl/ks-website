@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+
+{% block title %}Search{% endblock %}
+
+{% block nav %}
+<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+<li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li>
+<li class="nav-item"><a class="nav-link active" href="/search">Search</a></li>
+{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
+<li class="nav-item"><a class="nav-link" href="/summer-housing">Summer Housing</a></li>
+{% endblock %}
+
+{% block page_content %}
+<section id="page_content">
+    <div style="max-width: 700px;margin: auto;">
+        <h1>Freshmen Phone Number Search Tool</h1>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="addon">😎</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Insert a name here..." aria-label="Freshman name"
+                aria-describedby="addon" id="searchField">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" onclick="search()">Search</button>
+            </div>
+        </div>
+        <ul id="freshmen" class="list-group">
+            {% for freshman in freshmen %}
+            <li class="list-group-item" style="display:none;">
+                <b>{{freshman.name}}</b>
+
+                <div style="float: right;">
+                    {% if freshman.phone | length %}
+                    <span><a href="sms:{{freshman.phone}}">{{ freshman.phone }}</a></span>
+                    {% else %}
+                    <span>No Phone ☹️</span>
+                    {% endif %}
+
+                    {% if freshman.phone | length and freshman.email | length %}
+                    <span> // </span>
+                    {% endif %}
+
+                    {% if freshman.email | length %}
+                    <span><a href="mailto:{{ freshman.email }}?subject=Rush%20Kappa Sigma!&body=Hi {{freshman.name}}!">{{freshman.email}}</a></span>
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<script src="{{ url_for('static', filename='script/search.js') }}"></script>
+
+{% endblock %}
