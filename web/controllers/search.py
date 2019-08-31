@@ -24,5 +24,5 @@ def search():
             }
 
             freshmen.append(profile)
-    print(freshmen)
+
     return render_template('search.html', freshmen=freshmen)
