@@ -12,7 +12,7 @@ def search():
     print("Getting started")
     freshmen = []
 
-    with open(csv_file) as data:
+    with open(csv_file, encoding='utf-8') as data:
 
         reader = csv.reader(data, delimiter=',')
 
