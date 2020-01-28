@@ -4,21 +4,21 @@ from flask import Blueprint, url_for, render_template, abort, flash
 from flask_login import login_required
 from flask_rq import get_queue
 
-admin = Blueprint('admin', __name__)
+admin = Blueprint("admin", __name__)
 
 
-@admin.route('/')
-@admin.route('/users')
+@admin.route("/")
+@admin.route("/users")
 @login_required
 @admin_required
 def index():
     """Admin dashboard page."""
     users = User.query.all()
     roles = Role.query.all()
-    return render_template('admin/registered_users.html', users=users, roles=roles)
+    return render_template("admin/registered_users.html", users=users, roles=roles)
 
 
-@admin.route('/new-user', methods=['GET', 'POST'])
+@admin.route("/new-user", methods=["GET", "POST"])
 @login_required
 @admin_required
 def new_user():
@@ -30,15 +30,15 @@ def new_user():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             email=form.email.data,
-            password=form.password.data)
+            password=form.password.data,
+        )
         db.session.add(user)
         db.session.commit()
-        flash('User {} successfully created'.format(user.full_name()),
-              'form-success')
-    return render_template('admin/new_user.html', form=form)
+        flash("User {} successfully created".format(user.full_name()), "form-success")
+    return render_template("admin/new_user.html", form=form)
 
 
-@admin.route('/invite-user', methods=['GET', 'POST'])
+@admin.route("/invite-user", methods=["GET", "POST"])
 @login_required
 @admin_required
 def invite_user():
@@ -49,15 +49,14 @@ def invite_user():
             role=form.role.data,
             first_name=form.first_name.data,
             last_name=form.last_name.data,
-            email=form.email.data)
+            email=form.email.data,
+        )
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
         invite_link = url_for(
-            'account.join_from_invite',
-            user_id=user.id,
-            token=token,
-            _external=True)
+            "account.join_from_invite", user_id=user.id, token=token, _external=True
+        )
         # get_queue().enqueue(
         #     send_email,
         #     recipient=user.email,
@@ -66,12 +65,12 @@ def invite_user():
         #     user=user,
         #     invite_link=invite_link,
         # )
-        flash('User {} successfully invited'.format(user.full_name()),
-              'form-success')
-    return render_template('admin/new_user.html', form=form)
+        flash("User {} successfully invited".format(user.full_name()), "form-success")
+    return render_template("admin/new_user.html", form=form)
 
-@admin.route('/user/<int:user_id>')
-@admin.route('/user/<int:user_id>/info')
+
+@admin.route("/user/<int:user_id>")
+@admin.route("/user/<int:user_id>/info")
 @login_required
 @admin_required
 def user_info(user_id):
@@ -80,9 +79,10 @@ def user_info(user_id):
     if user is None:
         user = current_user
         # abort(404)
-    return render_template('admin/manage_user.html', user=user)
+    return render_template("admin/manage_user.html", user=user)
 
-@admin.route('/user/<int:user_id>/settings')
+
+@admin.route("/user/<int:user_id>/settings")
 @login_required
 @admin_required
 def user_settings(user_id):
@@ -90,9 +90,10 @@ def user_settings(user_id):
     user = User.query.filter_by(id=user_id).first()
     if user is None:
         abort(404)
-    return render_template('account/settings.html', user=user)
+    return render_template("account/settings.html", user=user)
 
-@admin.route('/user/<int:user_id>/change-email', methods=['GET', 'POST'])
+
+@admin.route("/user/<int:user_id>/change-email", methods=["GET", "POST"])
 @login_required
 @admin_required
 def change_user_email(user_id):
@@ -105,21 +106,27 @@ def change_user_email(user_id):
         user.email = form.email.data
         db.session.add(user)
         db.session.commit()
-        flash('Email for user {} successfully changed to {}.'.format(
-            user.full_name(), user.email), 'form-success')
-    return render_template('admin/manage_user.html', user=user, form=form)
+        flash(
+            "Email for user {} successfully changed to {}.".format(
+                user.full_name(), user.email
+            ),
+            "form-success",
+        )
+    return render_template("admin/manage_user.html", user=user, form=form)
 
 
-@admin.route(
-    '/user/<int:user_id>/change-account-type', methods=['GET', 'POST'])
+@admin.route("/user/<int:user_id>/change-account-type", methods=["GET", "POST"])
 @login_required
 @admin_required
 def change_account_type(user_id):
     """Change a user's account type."""
     if current_user.id == user_id:
-        flash('You cannot change the type of your own account. Please ask '
-              'another administrator to do this.', 'error')
-        return redirect(url_for('admin.user_info', user_id=user_id))
+        flash(
+            "You cannot change the type of your own account. Please ask "
+            "another administrator to do this.",
+            "error",
+        )
+        return redirect(url_for("admin.user_info", user_id=user_id))
 
     user = User.query.get(user_id)
     if user is None:
@@ -129,12 +136,16 @@ def change_account_type(user_id):
         user.role = form.role.data
         db.session.add(user)
         db.session.commit()
-        flash('Role for user {} successfully changed to {}.'.format(
-            user.full_name(), user.role.name), 'form-success')
-    return render_template('admin/manage_user.html', user=user, form=form)
+        flash(
+            "Role for user {} successfully changed to {}.".format(
+                user.full_name(), user.role.name
+            ),
+            "form-success",
+        )
+    return render_template("admin/manage_user.html", user=user, form=form)
 
 
-@admin.route('/user/<int:user_id>/delete')
+@admin.route("/user/<int:user_id>/delete")
 @login_required
 @admin_required
 def delete_user_request(user_id):
@@ -142,4 +153,4 @@ def delete_user_request(user_id):
     user = User.query.filter_by(id=user_id).first()
     if user is None:
         abort(404)
-    return render_template('admin/manage_user.html', user=user)
+    return render_template("admin/manage_user.html", user=user)
