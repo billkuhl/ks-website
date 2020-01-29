@@ -18,8 +18,8 @@ def make_shell_context():
     return dict(app=app, db=db, User=User, Role=Role)
 
 
-manager.add_command('shell', Shell(make_context=make_shell_context))
-manager.add_command('db', MigrateCommand)
+manager.add_command("shell", Shell(make_context=make_shell_context))
+manager.add_command("db", MigrateCommand)
 
 
 @manager.command
@@ -27,7 +27,7 @@ def test():
     """Run the unit tests."""
     import unittest
 
-    tests = unittest.TestLoader().discover('tests')
+    tests = unittest.TestLoader().discover("tests")
     unittest.TextTestRunner(verbosity=2).run(tests)
 
 
@@ -47,18 +47,20 @@ def setup_general():
     """Runs the set-up needed for both local development and production.
        Also sets up first admin user."""
     Role.insert_roles()
-    admin_query = Role.query.filter_by(name='Administrator')
+    admin_query = Role.query.filter_by(name="Administrator")
     if admin_query.first() is not None:
         if User.query.filter_by(email=ADMIN_EMAIL).first() is None:
             user = User(
-                first_name='Admin',
-                last_name='Account',
+                first_name="Admin",
+                last_name="Account",
                 password=ADMIN_PASSWORD,
                 confirmed=True,
-                email=ADMIN_EMAIL)
+                email=ADMIN_EMAIL,
+                beer_code="0000",
+            )
             db.session.add(user)
             db.session.commit()
-            print('Added administrator {}'.format(user.full_name()))
+            print("Added administrator {}".format(user.full_name()))
 
 
 @manager.command
@@ -72,20 +74,30 @@ def recreate_db():
     db.session.commit()
 
 
+@manager.command
+def reset():
+    """
+    Recreates the database and adds the admin user
+    """
+    recreate_db()
+    setup_dev()
+
+
 @manager.option(
-    '-n',
-    '--number-users',
+    "-n",
+    "--number-users",
     default=10,
     type=int,
-    help='Number of each model type to create',
-    dest='number_users')
+    help="Number of each model type to create",
+    dest="number_users",
+)
 def add_fake_data(number_users):
     """
     Adds fake data to the database.
     """
-    print('huh')
+    print("huh")
     User.generate_fake(count=number_users)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     manager.run()

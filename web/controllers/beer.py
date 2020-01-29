@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from web.models.beer import Beer, BeerType
+from web.models.user import User
 from web.models import db
 from datetime import datetime
 
@@ -11,22 +12,24 @@ def login():
     data = request.get_json()
 
     print(data)
-    if "brother_code" in data:
-        brother_code = data["brother_code"]
+    if "beer_code" in data:
+        beer_code = data["beer_code"]
     else:
         return jsonify({"result": "failure"})
 
-    # Lookup if brother code in database
-    # If not, then return failure
-    # Else, log that this brother opened the fridge
-    #   return {"result": "success", "name": "Michael Kulinski", "initials": "MAK"}
-
-    if brother_code == "0820":
-        response = {"result": "success", "name": "Michael Kulinski", "initials": "MAK"}
+    # Make sure that the person with this beer_code exists
+    brother = User.query.filter_by(beer_code=beer_code).first()
+    if brother is None:
+        return jsonify({"result": "failure"})
     else:
-        response = {"result": "failure"}
-
-    return jsonify(response)
+        # TODO log that this person opened the fridge
+        return jsonify(
+            {
+                "result": "success",
+                "name": brother.full_name(),
+                "initials": brother.initials(),
+            }
+        )
 
 
 @beer.route("/upc", methods=["POST"])
@@ -49,7 +52,7 @@ def upc():
                 "result": "success",
                 "beer_id": beer.id,
                 "name": beer.name,
-                "type": str(beer.beer_type),
+                "beer_type": str(beer.beer_type),
             }
         )
 
@@ -81,7 +84,10 @@ def add():
         name = data["name"]
         quantity = data["quantity"] if "quantity" in data else 0
         upc = data["upc"]
-        beer_type = data["upc"] if "beer_type" in data else BeerType.LAGER
+
+        beer_type = (
+            BeerType(data["beer_type"]) if "beer_type" in data else BeerType.LAGER
+        )
 
         # Create new kind of beer for database
         beer = Beer(
