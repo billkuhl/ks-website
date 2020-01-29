@@ -37,8 +37,19 @@ class Beer(db.Model):
     purchase_total = db.Column(db.Integer, default=0)
     last_added = db.Column(db.DateTime, default=datetime.now())
 
+    # Transaction information
+    beer_transactions = db.relationship("BeerTransaction")
+
     __table_args__ = (
         db.CheckConstraint(current_stock >= 0, name="check_stock_positive"),
         {},
     )
 
+
+class BeerTransaction(db.Model):
+    __tablename__ = "beer_transactions"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    brother_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    beer_id = db.Column(db.Integer, db.ForeignKey("beer.id"))
+    date = db.Column(db.DateTime, default=datetime.now())

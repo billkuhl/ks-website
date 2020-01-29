@@ -1,9 +1,8 @@
 from flask import Blueprint, request, jsonify
-from web.models.beer import Beer, BeerType
+from web.models.beer import Beer, BeerType, BeerTransaction
 from web.models.user import User
 from web.models import db
 from datetime import datetime
-import psycopg2
 
 beer = Blueprint("beer", __name__)
 
@@ -51,8 +50,10 @@ def charge():
     if brother is None or beer is None:
         return jsonify({"result": "failure"})
     else:
+        transaction = BeerTransaction(brother=brother, beer=beer)
+        db.session.add(transaction)
+        db.session.commit()
 
-        # TODO Create beer transaction
         beer.current_stock -= 1
         beer.checkout_total += 1
 

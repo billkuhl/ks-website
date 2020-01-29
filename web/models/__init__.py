@@ -13,4 +13,4 @@ db = SerializableAlchemy()
 
 # Import models into here
 from .user import User, Role
-from .beer import Beer
+from .beer import Beer, BeerTransaction
