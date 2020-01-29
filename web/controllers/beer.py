@@ -32,6 +32,35 @@ def login():
         )
 
 
+@beer.route("/charge", methods=["POST"])
+def charge():
+    data = request.get_json()
+    print("Checking out a beer")
+    print(data)
+
+    if "upc" in data and "beer_code" in data:
+        upc = data["upc"]
+        beer_code = data["beer_code"]
+    else:
+        return jsonify({"result": "failure"})
+
+    # Make sure that the person with this beer_code exists
+    brother = User.query.filter_by(beer_code=beer_code).first()
+    beer = Beer.query.filter_by(upc=upc).first()
+    if brother is None or beer is None:
+        return jsonify({"result": "failure"})
+    else:
+
+        # TODO Create beer transaction
+        beer.current_stock -= 1
+        beer.checkout_total += 1
+
+        db.session.add(beer)
+        db.session.commit()
+
+        return jsonify({"result": "success", "name": beer.name})
+
+
 @beer.route("/upc", methods=["POST"])
 def upc():
     data = request.get_json()
@@ -111,31 +140,3 @@ def add():
 
     return jsonify({"result": "failure", "fail": "end"})
 
-
-@beer.route("/charge", methods=["POST"])
-def charge():
-    data = request.get_json()
-    print("Checking out a beer")
-    print(data)
-
-    if "upc" in data and "beer_code" in data:
-        upc = data["upc"]
-        beer_code = data["beer_code"]
-    else:
-        return jsonify({"result": "failure"})
-
-    # Lookup brother via beer_code
-    # Lookup beer via upc code
-    # if either of those fail
-    #   return  failure
-    # else
-    #   create a new beer transaction
-    #   current_stock -= 1
-    #   return success and name of beer checked out
-
-    if upc == "01803127":
-        response = {"result": "success", "name": "Natural Light"}
-    else:
-        response = {"result": "failure"}
-
-    return jsonify(response)
