@@ -18,6 +18,9 @@ class BeerType(enum.Enum):
     PILSNER = "Pilsner"
     CIDER = "Cider"
 
+    def __str__(self):
+        return str(self.value)
+
 
 class Beer(db.Model):
     __tablename__ = "beer"

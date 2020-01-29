@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from web.models.beer import Beer, BeerType
 from web.models import db
+from datetime import datetime
 
 beer = Blueprint("beer", __name__)
 
@@ -39,29 +40,23 @@ def upc():
         return jsonify({"result": "failure"})
 
     # Check if upc code exists in database
-    # If not, return failure
-    # Else,
-    #   return {"result": "success","beer_id": beer.pk,"name": beer.name,"type": beer.get_beer_type_display(),"total_consumed": beer.checkout_total,}
-
-    if upc == "01803127":
-        response = {
-            "result": "success",
-            "beer_id": "1",
-            "name": "Natural Light",
-            "type": "Lager",
-            "total_consumed": "420",
-        }
+    beer = Beer.query.filter_by(upc=upc).first()
+    if beer is None:
+        return jsonify({"result": "failure"})
     else:
-        response = {"result": "failure"}
-
-    return jsonify(response)
+        return jsonify(
+            {
+                "result": "success",
+                "beer_id": beer.id,
+                "name": beer.name,
+                "type": str(beer.beer_type),
+            }
+        )
 
 
 @beer.route("/add", methods=["POST"])
 def add():
     data = request.get_json()
-    print("Beer added")
-    print(data)
 
     if "beer_id" in data:
         beer_id = data["beer_id"]
@@ -70,17 +65,19 @@ def add():
         # Lookup beer_id in database and get its data
         beer = Beer.query.filter_by(id=beer_id).first()
         if beer is None:
-            return jsonify({"result": "failure"})
+            return jsonify({"result": "failure", "fail": "Beer id does not exist"})
         else:
             beer.current_stock += quantity
             beer.purchase_total += quantity
+            beer.last_added = datetime.now()
 
             db.session.add(beer)
             db.session.commit()
+            print("Beer added")
+            print(data)
             return jsonify({"result": "success"})
 
     elif "name" in data:
-        print("Got into correct branch")
         name = data["name"]
         quantity = data["quantity"] if "quantity" in data else 0
         upc = data["upc"]
@@ -99,6 +96,8 @@ def add():
         try:
             db.session.add(beer)
             db.session.commit()
+            print("Beer added")
+            print(data)
             return jsonify({"result": "success"})
         except Exception:
             print("Tried to add a beer with a UPC that already exists")
