@@ -36,3 +36,9 @@ class Beer(db.Model):
     checkout_total = db.Column(db.Integer, default=0)
     purchase_total = db.Column(db.Integer, default=0)
     last_added = db.Column(db.DateTime, default=datetime.now())
+
+    __table_args__ = (
+        db.CheckConstraint(current_stock >= 0, name="check_stock_positive"),
+        {},
+    )
+

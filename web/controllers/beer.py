@@ -3,6 +3,7 @@ from web.models.beer import Beer, BeerType
 from web.models.user import User
 from web.models import db
 from datetime import datetime
+import psycopg2
 
 beer = Blueprint("beer", __name__)
 
@@ -55,10 +56,17 @@ def charge():
         beer.current_stock -= 1
         beer.checkout_total += 1
 
-        db.session.add(beer)
-        db.session.commit()
-
-        return jsonify({"result": "success", "name": beer.name})
+        try:
+            db.session.add(beer)
+            db.session.commit()
+            return jsonify({"result": "success", "name": beer.name})
+        except Exception:
+            return jsonify(
+                {
+                    "result": "failure",
+                    "fail": "Tried to check out more beers than available",
+                }
+            )
 
 
 @beer.route("/upc", methods=["POST"])
