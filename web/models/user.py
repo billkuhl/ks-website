@@ -63,7 +63,7 @@ class User(UserMixin, db.Model):
     is_alum = db.Column(db.Boolean, default=False, index=True)
     rook = db.Column(db.Integer)
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
-    beer_id = db.Column(db.String(64), unique=True)
+    beer_code = db.Column(db.String(64), unique=True)
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
