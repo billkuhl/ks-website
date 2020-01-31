@@ -1,5 +1,4 @@
 from web.models import db
-from datetime import datetime
 import enum
 
 
@@ -35,15 +34,21 @@ class Beer(db.Model):
     current_stock = db.Column(db.Integer, default=0)
     checkout_total = db.Column(db.Integer, default=0)
     purchase_total = db.Column(db.Integer, default=0)
-    last_added = db.Column(db.DateTime, default=datetime.now())
+    last_added = db.Column(db.DateTime)
 
     # Transaction information
-    beer_transactions = db.relationship("BeerTransaction")
+    beer_transactions = db.relationship("BeerTransaction", backref="beer")
 
     __table_args__ = (
         db.CheckConstraint(current_stock >= 0, name="check_stock_positive"),
         {},
     )
+
+    def __repr__(self):
+        return f"<Beer {self.name}>"
+
+    def __str__(self):
+        return f"<Beer {self.name}>"
 
 
 class BeerTransaction(db.Model):
@@ -52,4 +57,10 @@ class BeerTransaction(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     brother_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     beer_id = db.Column(db.Integer, db.ForeignKey("beer.id"))
-    date = db.Column(db.DateTime, default=datetime.now())
+    date = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return f"<BeerTransaction brother={self.brother} beer={self.beer} date={self.date}>"
+
+    def __str__(self):
+        return f"<BeerTransaction brother={self.brother} beer={self.beer} date={self.date}>"

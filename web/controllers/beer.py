@@ -50,7 +50,9 @@ def charge():
     if brother is None or beer is None:
         return jsonify({"result": "failure"})
     else:
-        transaction = BeerTransaction(brother=brother, beer=beer)
+        transaction = BeerTransaction(
+            brother_id=brother.id, beer_id=beer.id, date=datetime.now()
+        )
         db.session.add(transaction)
         db.session.commit()
 
@@ -135,6 +137,7 @@ def add():
             current_stock=quantity,
             checkout_total=0,
             purchase_total=quantity,
+            last_added=datetime.now(),
         )
 
         try:
@@ -149,3 +152,18 @@ def add():
 
     return jsonify({"result": "failure", "fail": "end"})
 
+
+# Super basic example of how to query foreign keys. Useful for charging brothers
+@beer.route("/query", methods=["GET", "POST"])
+def query():
+    transactions_by_beer = Beer.query.get(2).beer_transactions
+    transactions_by_brother = User.query.get(1).beer_transactions
+
+    brother = BeerTransaction.query.get(3).brother
+    beer = BeerTransaction.query.get(2).beer
+    return jsonify(
+        transactions_by_beer=[str(t) for t in transactions_by_beer],
+        transactions_by_brother=[str(t) for t in transactions_by_brother],
+        brother=str(brother),
+        beer=str(beer),
+    )

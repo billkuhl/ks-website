@@ -66,7 +66,7 @@ class User(UserMixin, db.Model):
 
     # Beer fridge information
     beer_code = db.Column(db.String(64), unique=True)
-    beer_transactions = db.relationship("BeerTransaction")
+    beer_transactions = db.relationship("BeerTransaction", backref="brother")
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
