@@ -65,7 +65,7 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
 
     # Beer fridge information
-    beer_code = db.Column(db.String(64), unique=True)
+    beer_code = db.Column(db.String(4), unique=True)
     beer_transactions = db.relationship("BeerTransaction", backref="brother")
 
     def __init__(self, **kwargs):
