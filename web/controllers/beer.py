@@ -7,11 +7,106 @@ from datetime import datetime
 beer = Blueprint("beer", __name__)
 
 
-@beer.route("/login", methods=["POST"])
-def login():
+@beer.route("/upc", methods=["POST"])
+def upc():
+    """
+    Checks to see if the upc has already been added in the past
+    If so, return information about that beer
+    Otherwise, return an error
+    """
     data = request.get_json()
 
-    print(data)
+    if "upc" in data:
+        upc = data["upc"]
+    else:
+        return jsonify({"result": "failure"})
+
+    # Check if upc code exists in database
+    beer = Beer.query.filter_by(upc=upc).first()
+    if beer is None:
+        return jsonify({"result": "failure"})
+    else:
+        return jsonify(
+            {
+                "result": "success",
+                "beer_id": beer.id,
+                "name": beer.name,
+                "beer_type": str(beer.beer_type),
+            }
+        )
+
+
+@beer.route("/checkin", methods=["POST"])
+def checkin():
+    """
+    Checks new beers into the beer fridge
+    Creates a new beer row if upc doesn't exist in the database
+    Otherwise, updates the quantities for beers that have already been checked in before
+    """
+    data = request.get_json()
+
+    if "beer_id" in data:
+        beer_id = data["beer_id"]
+
+        quantity = data["quantity"] if "quantity" in data else 0
+        # Lookup beer_id in database and get its data
+        beer = Beer.query.filter_by(id=beer_id).first()
+        if beer is None:
+            return jsonify({"result": "failure", "fail": "Beer id does not exist"})
+        else:
+            beer.current_stock += quantity
+            beer.purchase_total += quantity
+            beer.last_added = datetime.now()
+
+            db.session.add(beer)
+            db.session.commit()
+            print("Beer added")
+            print(data)
+            return jsonify({"result": "success"})
+
+    elif "name" in data:
+        name = data["name"]
+        quantity = data["quantity"] if "quantity" in data else 0
+        upc = data["upc"]
+
+        if "beer_type" not in data or data["beer_type"] == "None":
+            beer_type = BeerType.LAGER
+        else:
+            beer_type = BeerType(data["beer_type"])
+
+        # Create new kind of beer for database
+        beer = Beer(
+            name=name,
+            upc=upc,
+            beer_type=beer_type,
+            current_stock=quantity,
+            checkout_total=0,
+            purchase_total=quantity,
+            last_added=datetime.now(),
+        )
+
+        try:
+            db.session.add(beer)
+            db.session.commit()
+            print("Beer added")
+            print(data)
+            return jsonify({"result": "success"})
+        except Exception:
+            print("Tried to add a beer with a UPC that already exists")
+            return jsonify({"result": "failure", "fail": "Upc collision"})
+
+    return jsonify({"result": "failure", "fail": "end"})
+
+
+@beer.route("/login", methods=["POST"])
+def login():
+    """
+    Tries to find a brother with the given beer_code
+    If found, returns their name and initials
+    If not, fails since that person doesn't exist
+    """
+    data = request.get_json()
+
     if "beer_code" in data:
         beer_code = data["beer_code"]
     else:
@@ -32,8 +127,8 @@ def login():
         )
 
 
-@beer.route("/charge", methods=["POST"])
-def charge():
+@beer.route("/checkout", methods=["POST"])
+def checkout():
     data = request.get_json()
     print("Checking out a beer")
     print(data)
@@ -70,87 +165,6 @@ def charge():
                     "fail": "Tried to check out more beers than available",
                 }
             )
-
-
-@beer.route("/upc", methods=["POST"])
-def upc():
-    data = request.get_json()
-    print(data)
-
-    if "upc" in data:
-        upc = data["upc"]
-    else:
-        return jsonify({"result": "failure"})
-
-    # Check if upc code exists in database
-    beer = Beer.query.filter_by(upc=upc).first()
-    if beer is None:
-        return jsonify({"result": "failure"})
-    else:
-        return jsonify(
-            {
-                "result": "success",
-                "beer_id": beer.id,
-                "name": beer.name,
-                "beer_type": str(beer.beer_type),
-            }
-        )
-
-
-@beer.route("/add", methods=["POST"])
-def add():
-    data = request.get_json()
-
-    if "beer_id" in data:
-        beer_id = data["beer_id"]
-
-        quantity = data["quantity"] if "quantity" in data else 0
-        # Lookup beer_id in database and get its data
-        beer = Beer.query.filter_by(id=beer_id).first()
-        if beer is None:
-            return jsonify({"result": "failure", "fail": "Beer id does not exist"})
-        else:
-            beer.current_stock += quantity
-            beer.purchase_total += quantity
-            beer.last_added = datetime.now()
-
-            db.session.add(beer)
-            db.session.commit()
-            print("Beer added")
-            print(data)
-            return jsonify({"result": "success"})
-
-    elif "name" in data:
-        name = data["name"]
-        quantity = data["quantity"] if "quantity" in data else 0
-        upc = data["upc"]
-
-        beer_type = (
-            BeerType(data["beer_type"]) if "beer_type" in data else BeerType.LAGER
-        )
-
-        # Create new kind of beer for database
-        beer = Beer(
-            name=name,
-            upc=upc,
-            beer_type=beer_type,
-            current_stock=quantity,
-            checkout_total=0,
-            purchase_total=quantity,
-            last_added=datetime.now(),
-        )
-
-        try:
-            db.session.add(beer)
-            db.session.commit()
-            print("Beer added")
-            print(data)
-            return jsonify({"result": "success"})
-        except Exception:
-            print("Tried to add a beer with a UPC that already exists")
-            return jsonify({"result": "failure", "fail": "Upc collision"})
-
-    return jsonify({"result": "failure", "fail": "end"})
 
 
 # Super basic example of how to query foreign keys. Useful for charging brothers
