@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import subprocess
+import pandas
 
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager, Shell
@@ -81,6 +82,28 @@ def reset():
     """
     recreate_db()
     setup_dev()
+
+
+@manager.command
+def add_brothers_from_csv():
+    df = pandas.read_csv("./KS Brotherhood Info.csv")
+    for ind in df.index:
+        name = str(df["Name"][ind])
+        class_year = int(df["Class Year"][ind])
+        rook_number = int(df["Rook Number"][ind])
+
+        name_parts = name.split()
+        if len(name_parts) == 2:
+            first_name = name_parts[0]
+            middle_initial = ""
+            last_name = name_parts[1]
+        else:
+            first_name = name_parts[0]
+            middle_initial = name_parts[1][0]
+            last_name = " ".join(name_parts[2:])
+
+        User.add_brother(first_name, middle_initial, last_name, class_year, rook_number)
+    return
 
 
 @manager.option(

@@ -175,6 +175,32 @@ class User(UserMixin, db.Model):
             except IntegrityError:
                 db.session.rollback()
 
+    @staticmethod
+    def add_brother(first_name, middle_initial, last_name, class_year, rook):
+        if (
+            User.query.filter_by(first_name=first_name, last_name=last_name).first()
+            is None
+        ):
+            # Make sure that the beer code is formatted correctly
+            rook_num = str(rook)
+            if len(rook_num) == 1:
+                rook_num = "0" + rook_num
+            beer_code = rook_num + str(class_year)[2:4]
+
+            user = User(
+                first_name=first_name,
+                middle_initial=middle_initial,
+                last_name=last_name,
+                class_year=class_year,
+                rook=rook,
+                beer_code=beer_code,
+            )
+            db.session.add(user)
+            db.session.commit()
+            print("Added brother {}".format(user.full_name()))
+
+        return
+
     def __repr__(self):
         return "<User '%s'>" % self.full_name()
 
