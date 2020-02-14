@@ -145,17 +145,16 @@ def checkout():
     if brother is None or beer is None:
         return jsonify({"result": "failure"})
     else:
-        transaction = BeerTransaction(
-            brother_id=brother.id, beer_id=beer.id, date=datetime.now()
-        )
-        db.session.add(transaction)
-        db.session.commit()
-
-        beer.current_stock -= 1
-        beer.checkout_total += 1
-
         try:
+            beer.current_stock -= 1
+            beer.checkout_total += 1
             db.session.add(beer)
+
+            transaction = BeerTransaction(
+                brother_id=brother.id, beer_id=beer.id, date=datetime.now()
+            )
+            db.session.add(transaction)
+
             db.session.commit()
             return jsonify({"result": "success", "name": beer.name})
         except Exception:
