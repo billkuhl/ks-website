@@ -1,51 +1,67 @@
 {% extends 'layout.html' %}
 
 {% block head %}
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='home.css') }}">
 {% endblock %}
 
-{% block title %}summer housing{% endblock %}
+{% block title %}Summer Housing{% endblock %}
 
 {% block nav %}
-	<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-	<li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li>
-	{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
-	<li class="nav-item"><a class="nav-link active" href="/summer-housing">Summer Housing</a></li>
+<li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+{# <li class="nav-item"><a class="nav-link" href="/rush">Rush</a></li> #}
+{# <li class="nav-item"><a class="nav-link" href="/brothers">Brothers</a></li> #}
+<li class="nav-item"><a class="nav-link active" href="/summer-housing">Summer Housing</a></li>
 {% endblock %}
 
 {% block page_content %}
-	<section id="page_content">
-		<div class="banner">
-			<img src="static/img/summer.jpg" class="img-fluid" alt="Responsive image">
-		</div>
-		<div class="container-fluid">
-			<div class="row justify-content-md-center">
-				<div class="col-12 col-md-8">
-					<div class="about">
+<section id="page_content">
+    <div class="banner">
+        <img src="static/img/summer.jpg" class="img-fluid" alt="Responsive image">
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-md-8">
+                <div class="about">
 
-						<h3>A Kappa Sig Summer</h3>
-						<h5>Summer Housing at Kappa Sigma</h5>
-						
-						<p>
-						Every summer Kappa Sigma opens its doors for summer boarders. Located right on 
-						MIT campus in Cambridge and just a 364.4 smoot (+/- 1 ear) walk across the Harvard
-						Bridge to Boston, it's the perfect location for any person working or researching in Boston for
-						the summer.
-						</p>
+                    <h3>A Kappa Sig Summer</h3>
+                    <h5>Summer Housing at Kappa Sigma</h5>
 
-						<p>
-						The application is currently online and available if you are interested in living
-						with us for the summer. But, hurry though, rooms do go fast! Here is the link to 
-						<a href="https://docs.google.com/forms/d/e/1FAIpQLSfaefh8_hk7GXYTGHbupJukWTm2el2tWtDuvhp1xlVh-sdG1Q/viewform" target="_none" rel="noopener">the application</a>. If you have any questions about living in Kappa Sig for the summer
-						or need help with business consulting, shoot an email to <a href="mailto:wua@mit.edu">Tree</a>, our Summer Housing Chair.
-						</p>
-						
-						rates: $1700 quad, $1900 double, $2300 single
+                    <p>
+                    Every summer Kappa Sigma opens its doors for summer boarders. Located right on 
+                    MIT campus in Cambridge and just a 364.4 smoot (+/- 1 ear) walk across the Harvard
+                    Bridge to Boston, it's the perfect location for any person working or researching in Boston for
+                    the summer.
+                    </p>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	
+                    <p>
+                    Our application will soon be posted here, as well as with rental costs. In the meanwhile, just shoot an email to our <a href="mailto:ks-ec@mit.edu">Executive Committee</a> to begin the process of reserving your spot and getting more information.
+                    </p>
+
+                    {# 
+                    <p>
+                    The application is currently online and available if you are interested in living
+                    with us for the summer. But, hurry though, rooms do go fast! Here is the link to 
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaefh8_hk7GXYTGHbupJukWTm2el2tWtDuvhp1xlVh-sdG1Q/viewform" target="_none" rel="noopener">the application</a>. If you have any questions about living in Kappa Sig for the summer
+                    or need help with business consulting, shoot an email to <a href="mailto:wua@mit.edu">Tree</a>, our Summer Housing Chair.
+                    </p>
+
+                    <!-- rates: $1700 quad, $1900 double, $2300 single -->
+
+                    #}
+
+                    <p>
+                    If you are curious about rental costs, these are the rates that we charged last summer. These numbers will most likely not represent the costs for renting this summer, <b>so these are not the final prices</b>
+                    </p>
+                    
+                    <ul>
+                        <li><b>Single:</b> $2300</li>
+                        <li><b>Double:</b> $1900</li>
+                        <li><b>Quad:</b> $1700</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
